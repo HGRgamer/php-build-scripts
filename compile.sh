@@ -397,6 +397,30 @@ download_file "https://github.com/php/php-src/archive/php-$PHP_VERSION.tar.gz" |
 mv php-src-php-$PHP_VERSION php
 echo " done!"
 
+function build_zstd {
+	if [ "$DO_STATIC" == "yes" ]; then
+		local EXTRA_FLAGS="--static"
+	else
+		local EXTRA_FLAGS="--shared"
+	fi
+
+	#zlib
+	echo -n "[zlib] downloading zstd..."
+        #download_file "https://github.com/madler/zlib/archive/v$ZLIB_VERSION.tar.gz" | tar -zx >> "$DIR/install.log" 2>&1
+	git clone --recursive --depth=1 https://github.com/kjdev/php-ext-zstd.git
+	mv php-ext-zstd zstd
+	echo -n " checking..."
+	cd zstd
+	RANLIB=$RANLIB ./configure --prefix="$INSTALL_DIR" \
+	$EXTRA_FLAGS >> "$DIR/install.log" 2>&1
+	echo -n " compiling..."
+	make -j $THREADS >> "$DIR/install.log" 2>&1
+	echo -n " installing..."
+	make install >> "$DIR/install.log" 2>&1
+	cd ..
+	echo " done!"
+}
+
 function build_zlib {
 	if [ "$DO_STATIC" == "yes" ]; then
 		local EXTRA_FLAGS="--static"
@@ -765,6 +789,7 @@ function build_libdeflate {
 	echo " done!"
 }
 
+build_zstd
 build_zlib
 build_gmp
 build_openssl
