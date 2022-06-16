@@ -401,7 +401,7 @@ function build_zstd {
 	if [ "$DO_STATIC" == "yes" ]; then
 		local EXTRA_FLAGS="--static"
 	else
-		local EXTRA_FLAGS="--shared"
+		local EXTRA_FLAGS=""
 	fi
 
 	#zlib
