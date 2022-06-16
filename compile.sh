@@ -399,9 +399,9 @@ echo " done!"
 
 function build_zstd {
 	if [ "$DO_STATIC" == "yes" ]; then
-		local EXTRA_FLAGS="--static"
-	else
 		local EXTRA_FLAGS=""
+	else
+		local EXTRA_FLAGS="--with-libzstd"
 	fi
 
 	#zlib
