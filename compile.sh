@@ -435,8 +435,9 @@ function build_zlib {
 	mv zlib-$ZLIB_VERSION zlib
 	echo -n " checking..."
 	cd zlib
-	RANLIB=$RANLIB ./configure --prefix="$INSTALL_DIR" \
-	$EXTRA_FLAGS >> "$DIR/install.log" 2>&1
+	RANLIB=$RANLIB ./configure $EXTRA_FLAGS \
+	--prefix="$INSTALL_DIR" \
+        >> "$DIR/install.log" 2>&1
 	echo -n " compiling..."
 	make -j $THREADS >> "$DIR/install.log" 2>&1
 	echo -n " installing..."
