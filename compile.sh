@@ -791,7 +791,7 @@ function build_libdeflate {
 	echo " done!"
 }
 
-build_zstd
+#build_zstd
 build_zlib
 build_gmp
 build_openssl
@@ -842,6 +842,8 @@ function get_pecl_extension {
 }
 
 echo "[PHP] Downloading additional extensions..."
+
+get_pecl_extension "zstd" "0.11.0"
 
 get_github_extension "pthreads" "$EXT_PTHREADS_VERSION" "pmmp" "pthreads" #"v" needed for release tags because github removes the "v"
 #get_pecl_extension "pthreads" "$EXT_PTHREADS_VERSION"
