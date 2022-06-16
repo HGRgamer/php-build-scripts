@@ -405,12 +405,13 @@ function build_zstd {
 	fi
 
 	#zlib
-	echo -n "[zlib] downloading zstd..."
+	echo -n "[zstd] downloading zstd..."
         #download_file "https://github.com/madler/zlib/archive/v$ZLIB_VERSION.tar.gz" | tar -zx >> "$DIR/install.log" 2>&1
 	git clone --recursive --depth=1 https://github.com/kjdev/php-ext-zstd.git >> "$DIR/install.log" 2>&1
 	mv php-ext-zstd zstd
 	echo -n " checking..."
 	cd zstd
+        phpize
 	RANLIB=$RANLIB ./configure --prefix="$INSTALL_DIR" \
 	$EXTRA_FLAGS >> "$DIR/install.log" 2>&1
 	echo -n " compiling..."
